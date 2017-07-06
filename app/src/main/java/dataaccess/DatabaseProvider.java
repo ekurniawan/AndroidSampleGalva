@@ -132,5 +132,32 @@ public class DatabaseProvider extends SQLiteOpenHelper {
         return kategori;
     }
 
+    public void SeedKategori(){
+        Kategori kategori1 = new Kategori();
+        kategori1.setKategoriID(1);
+        kategori1.setNamaKategori("Shirt");
+        TambahKategori(kategori1);
+
+        Kategori kategori2 = new Kategori();
+        kategori2.setKategoriID(2);
+        kategori2.setNamaKategori("Jacket");
+        TambahKategori(kategori2);
+
+        Kategori kategori3 = new Kategori();
+        kategori3.setKategoriID(3);
+        kategori3.setNamaKategori("Pants");
+        TambahKategori(kategori3);
+
+        Kategori kategori4 = new Kategori();
+        kategori4.setKategoriID(4);
+        kategori4.setNamaKategori("Vest");
+        TambahKategori(kategori4);
+
+        Kategori kategori5 = new Kategori();
+        kategori5.setKategoriID(5);
+        kategori5.setNamaKategori("Blouse");
+        TambahKategori(kategori5);
+    }
+
     //endregion
 }

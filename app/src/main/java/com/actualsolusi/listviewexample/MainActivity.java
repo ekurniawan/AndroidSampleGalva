@@ -68,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(MainActivity.this,BarangListActivity.class);
             startActivity(i);
         }
+        else if(id==R.id.action_listKategori){
+            Intent i = new Intent(MainActivity.this,KategoriListActivity.class);
+            startActivity(i);
+        }
 
         return super.onOptionsItemSelected(item);
     }

@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.actualsolusi.listviewexample.MainActivity">
     <item
+        android:id="@+id/action_listKategori"
+        android:orderInCategory="100"
+        android:title="List Kategori"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_listBarang"
         android:orderInCategory="100"
         android:title="List Barang"
