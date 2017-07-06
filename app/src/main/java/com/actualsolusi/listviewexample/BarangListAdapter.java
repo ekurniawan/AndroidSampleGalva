@@ -1,9 +1,9 @@
 package com.actualsolusi.listviewexample;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import models.Barang;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by erick on 05/07/2017.
@@ -50,8 +52,16 @@ public class BarangListAdapter extends ArrayAdapter<Barang> {
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView);
         try {
             //Log.v("BarangListAdapter",getContext().getFilesDir().getAbsolutePath());
-            Log.v("BarangListAdapter",barang.getGambar());
-            Bitmap bitmap = loadImageFromStorage(TambahBarangActivity.absolutePath,
+            //Log.v("BarangListAdapter",barang.getGambar());
+            String myPath = "";
+            /*SharedPreferences myPrefs = getContext().getSharedPreferences("myPrefs",0);
+            if(myPrefs.contains("myPath")){
+                myPath = myPrefs.getString("myPath","tidak ditemukan");
+            }*/
+            ContextWrapper cw = new ContextWrapper(getContext());
+            File directory = cw.getDir("imageDir",MODE_PRIVATE);
+
+            Bitmap bitmap = loadImageFromStorage(directory.getAbsolutePath(),
                     barang.getGambar().toString().trim());
             imageView.setImageBitmap(bitmap);
         } catch (FileNotFoundException e) {

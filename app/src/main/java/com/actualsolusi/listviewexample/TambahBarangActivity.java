@@ -35,8 +35,6 @@ public class TambahBarangActivity extends AppCompatActivity {
     private List<Kategori> listKategori;
     private Kategori kategoriSelected;
     private Bitmap imageBitmap;
-    public static String absolutePath;
-
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -121,10 +119,8 @@ public class TambahBarangActivity extends AppCompatActivity {
                 if(status!=-1){
                     try {
                         String myPath = saveToInternalStorage(imageBitmap);
-                        absolutePath = myPath;
                         Intent i = new Intent(TambahBarangActivity.this,
                                 BarangListActivity.class);
-                        i.putExtra("myPath",absolutePath);
                         startActivity(i);
 
                         /*Toast.makeText(getApplicationContext(),
