@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="clothing">
+        <item>Cross-back training tank</item>
+        <item>Stretchy dance pants</item>
+        <item>Ultra-soft tank top</item>
+        <item>V-neck T-shirt</item>
+        <item>V-neck sweater</item>
+        <item>Polo Shirt</item>
+        <item>Termal Vest</item>
+        <item>Grunge skater jeans</item>
+        <item>Blue Jeans</item>
+        <item>Red Dress</item>
+        <item>T-Shirt</item>
+    </string-array>
+</resources>
