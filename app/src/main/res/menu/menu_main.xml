@@ -12,4 +12,9 @@
         android:orderInCategory="100"
         android:title="List Barang"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_tambahBarang"
+        android:orderInCategory="100"
+        android:title="Tambah Barang"
+        app:showAsAction="never" />
 </menu>

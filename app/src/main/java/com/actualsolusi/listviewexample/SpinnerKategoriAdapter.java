@@ -1,3 +1,5 @@
+package com.actualsolusi.listviewexample;
+
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,8 +23,7 @@ public class SpinnerKategoriAdapter extends ArrayAdapter<Kategori> {
     private Context context;
     private List<Kategori> listKategori = new ArrayList<>();
 
-    public SpinnerKategoriAdapter(Context context, int resource,
-                                  int textViewResourceId, List<Kategori> listKategori) {
+    public SpinnerKategoriAdapter(Context context, int resource,List<Kategori> listKategori) {
         super(context, resource, listKategori);
         this.listKategori = listKategori;
     }
