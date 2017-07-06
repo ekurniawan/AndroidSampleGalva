@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -184,8 +185,12 @@ public class DatabaseProvider extends SQLiteOpenHelper {
 
     public List<Barang> GetAllBarang(){
         List<Barang> listBarang = new ArrayList<>();
-        String strSql = "select * from "+TableBarang+" order by "+
-                NamaBarang+" asc";
+        String strSql = "select Barang.BarangID,Barang.KategoriID,Kategori.NamaKategori," +
+                "Barang.NamaBarang,Barang.Deskripsi,Barang.Stok,Barang.HargaBeli,Barang.HargaJual," +
+                "Barang.Gambar,Barang.isSync " +
+                "from Barang inner join Kategori " +
+                "on Barang.KategoriID=Kategori.KategoriID";
+
         //Log.e(LOG,strSql);
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -204,12 +209,41 @@ public class DatabaseProvider extends SQLiteOpenHelper {
                 barang.setGambar(c.getString(c.getColumnIndex(Gambar)));
                 barang.setIsSync(c.getInt(c.getColumnIndex(isSync)));
 
+                Kategori kategori = new Kategori();
+                kategori.setKategoriID(c.getInt(c.getColumnIndex(KategoriID)));
+                kategori.setNamaKategori(c.getString(c.getColumnIndex(NamaKategori)));
+                barang.setKategori(kategori);
+
                 listBarang.add(barang);
             }while (c.moveToNext());
         }
         db.close();
 
         return listBarang;
+    }
+
+    public Barang GetBarangById(String barangID){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String strSql = "select * from "+TableBarang+" where "+BarangID+"=?";
+        Log.e(LOG,strSql);
+
+        Cursor c = db.rawQuery(strSql,new String[]{barangID});
+        if(c!=null)
+            c.moveToFirst();
+        Barang barang = new Barang();
+        barang.setBarangID(c.getString(c.getColumnIndex(BarangID)));
+        barang.setKategoriID(c.getInt(c.getColumnIndex(KategoriID)));
+        barang.setNamaBarang(c.getString(c.getColumnIndex(NamaBarang)));
+        barang.setDeskripsi(c.getString(c.getColumnIndex(Deskripsi)));
+        barang.setStok(c.getInt(c.getColumnIndex(Stok)));
+        barang.setHargaBeli(c.getDouble(c.getColumnIndex(HargaBeli)));
+        barang.setHargaJual(c.getDouble(c.getColumnIndex(HargaJual)));
+        barang.setGambar(c.getString(c.getColumnIndex(Gambar)));
+        barang.setIsSync(c.getInt(c.getColumnIndex(isSync)));
+
+        db.close();
+
+        return barang;
     }
 
 

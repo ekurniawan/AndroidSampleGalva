@@ -14,6 +14,15 @@ public class Barang {
     private double HargaJual;
     private String Gambar;
     private int isSync;
+    private Kategori kategori;
+
+    public Kategori getKategori() {
+        return kategori;
+    }
+
+    public void setKategori(Kategori kategori) {
+        this.kategori = kategori;
+    }
 
     public int getIsSync() {
         return isSync;

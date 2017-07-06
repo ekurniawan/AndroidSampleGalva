@@ -49,6 +49,9 @@ public class BarangListAdapter extends ArrayAdapter<Barang> {
         TextView tvHarga = (TextView)convertView.findViewById(R.id.tvHarga);
         tvHarga.setText(String.valueOf(barang.getHargaJual()));
 
+        TextView tvNamaKategori = (TextView)convertView.findViewById(R.id.tvNamaKategori);
+        tvNamaKategori.setText(barang.getKategori().getNamaKategori());
+
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView);
         try {
             //Log.v("BarangListAdapter",getContext().getFilesDir().getAbsolutePath());

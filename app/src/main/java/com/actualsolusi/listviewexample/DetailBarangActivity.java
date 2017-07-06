@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +22,7 @@ import models.Barang;
 public class DetailBarangActivity extends AppCompatActivity {
     private ImageView imageDetailBarang;
     private EditText txtDetailBarangID,txtDetailKategoriID,txtDetailNamaBarang,txtDetailDeskripsiBarang,txtDetailStok,txtDetailHargaBeli,txtDetailHargaJual;
+    private Spinner spKategori;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,9 @@ public class DetailBarangActivity extends AppCompatActivity {
         txtDetailBarangID.setText(barang.getBarangID());
         txtDetailNamaBarang.setText(barang.getNamaBarang());
         txtDetailDeskripsiBarang.setText(barang.getDeskripsi());
+
+        spKategori = (Spinner)findViewById(R.id.spKategori);
+
     }
 
     private Bitmap getBitmapFromAsset(String barangId){
