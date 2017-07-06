@@ -23,6 +23,8 @@ public class Barang {
         this.isSync = isSync;
     }
 
+    public Barang(){}
+
     public Barang(String barangID, int kategoriID, String namaBarang, String deskripsi, int stok, double hargaBeli, double hargaJual, String gambar) {
         BarangID = barangID;
         KategoriID = kategoriID;

@@ -182,6 +182,35 @@ public class DatabaseProvider extends SQLiteOpenHelper {
         return status;
     }
 
+    public List<Barang> GetAllBarang(){
+        List<Barang> listBarang = new ArrayList<>();
+        String strSql = "select * from "+TableBarang+" order by "+
+                NamaBarang+" asc";
+        //Log.e(LOG,strSql);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor c = db.rawQuery(strSql,null);
+        if(c.moveToFirst()){
+            do{
+                Barang barang = new Barang();
+                barang.setBarangID(c.getString(c.getColumnIndex(BarangID)));
+                barang.setKategoriID(c.getInt(c.getColumnIndex(KategoriID)));
+                barang.setNamaBarang(c.getString(c.getColumnIndex(NamaBarang)));
+                barang.setDeskripsi(c.getString(c.getColumnIndex(Deskripsi)));
+                barang.setStok(c.getInt(c.getColumnIndex(Stok)));
+                barang.setHargaBeli(c.getDouble(c.getColumnIndex(HargaBeli)));
+                barang.setHargaJual(c.getDouble(c.getColumnIndex(HargaJual)));
+                barang.setGambar(c.getString(c.getColumnIndex(Gambar)));
+                barang.setIsSync(c.getInt(c.getColumnIndex(isSync)));
+
+                listBarang.add(barang);
+            }while (c.moveToNext());
+        }
+        db.close();
+
+        return listBarang;
+    }
 
 
     //endregion
