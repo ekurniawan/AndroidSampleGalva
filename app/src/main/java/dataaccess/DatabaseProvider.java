@@ -43,19 +43,20 @@ public class DatabaseProvider extends SQLiteOpenHelper {
             +Deskripsi+" text,"+Stok+" integer,"+HargaBeli+" real,"
             +HargaJual+" real,"+Gambar+" text, "+isSync+" integer);";
 
-    public DatabaseProvider(Context context, String name,
-                            SQLiteDatabase.CursorFactory factory,
-                            int version) {
-        super(context, name, factory, version);
+    public DatabaseProvider(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(Create_Table_Kategori);
+        db.execSQL(Create_Table_Barang);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("drop table if exists "+TableKategori);
+        db.execSQL("drop table if exists "+TableBarang);
+        onCreate(db);
     }
 }
