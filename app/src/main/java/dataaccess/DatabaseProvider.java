@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import models.Barang;
 import models.Kategori;
 
 /**
@@ -158,6 +159,30 @@ public class DatabaseProvider extends SQLiteOpenHelper {
         kategori5.setNamaKategori("Blouse");
         TambahKategori(kategori5);
     }
+
+    //endregion
+
+    //region Table Barang
+
+    public long InsertBarang(Barang barang){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(BarangID,barang.getBarangID());
+        values.put(KategoriID,barang.getKategoriID());
+        values.put(NamaBarang,barang.getNamaBarang());
+        values.put(Deskripsi,barang.getDeskripsi());
+        values.put(Stok,barang.getStok());
+        values.put(HargaBeli,barang.getHargaBeli());
+        values.put(HargaJual,barang.getHargaJual());
+        values.put(Gambar,barang.getGambar());
+        values.put(isSync,barang.getIsSync());
+
+        long status = db.insert(TableBarang,null,values);
+        db.close();
+        return status;
+    }
+
+
 
     //endregion
 }

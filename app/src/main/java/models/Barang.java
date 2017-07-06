@@ -13,6 +13,15 @@ public class Barang {
     private double HargaBeli;
     private double HargaJual;
     private String Gambar;
+    private int isSync;
+
+    public int getIsSync() {
+        return isSync;
+    }
+
+    public void setIsSync(int isSync) {
+        this.isSync = isSync;
+    }
 
     public Barang(String barangID, int kategoriID, String namaBarang, String deskripsi, int stok, double hargaBeli, double hargaJual, String gambar) {
         BarangID = barangID;
