@@ -14,12 +14,13 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import dataaccess.DataProvider;
+import dataaccess.DatabaseProvider;
 import models.Barang;
 
 public class BarangListActivity extends AppCompatActivity {
     private ListView barangListView;
-    private List<Barang>  listBarang = DataProvider.barangList;
+    private List<Barang>  listBarang;
+    private DatabaseProvider db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,12 +38,16 @@ public class BarangListActivity extends AppCompatActivity {
             }
         });
 
+        db = new DatabaseProvider(this);
+
         SharedPreferences myPrefs = getSharedPreferences("myPrefs",0);
         if(myPrefs.contains("nama")){
             String nama = myPrefs.getString("nama","tidak ditemukan");
             String username = myPrefs.getString("username","tidak ditemukan");
             Toast.makeText(this,"Nama :"+nama+" "+username,Toast.LENGTH_LONG).show();
         }
+
+        listBarang = db.GetAllBarang();
 
         BarangListAdapter adapter = new BarangListAdapter(this,
                 R.layout.list_item,listBarang);

@@ -1,9 +1,9 @@
 package com.actualsolusi.listviewexample;
 
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import models.Barang;
@@ -47,13 +48,20 @@ public class BarangListAdapter extends ArrayAdapter<Barang> {
         tvHarga.setText(String.valueOf(barang.getHargaJual()));
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView);
-        Bitmap bitmap = getBitmapFromAsset(barang.getBarangID());
-        imageView.setImageBitmap(bitmap);
+        try {
+            //Log.v("BarangListAdapter",getContext().getFilesDir().getAbsolutePath());
+            Log.v("BarangListAdapter",barang.getGambar());
+            Bitmap bitmap = loadImageFromStorage(TambahBarangActivity.absolutePath,
+                    barang.getGambar().toString().trim());
+            imageView.setImageBitmap(bitmap);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         return convertView;
     }
 
-    private Bitmap getBitmapFromAsset(String barangId){
+    /*private Bitmap getBitmapFromAsset(String barangId){
         AssetManager assetManager = getContext().getAssets();
         InputStream stream = null;
         try{
@@ -63,6 +71,12 @@ public class BarangListAdapter extends ArrayAdapter<Barang> {
             e.printStackTrace();
             return null;
         }
+    }*/
+
+    private Bitmap loadImageFromStorage(String path, String filename) throws FileNotFoundException {
+        File f = new File(path,filename);
+        Bitmap b = BitmapFactory.decodeStream(new FileInputStream(f));
+        return b;
     }
 
 }
