@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
@@ -38,24 +38,75 @@ public class KategoriListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               SyncWithServer();
             }
         });
 
         kategoriListView = (ListView)findViewById(R.id.kategoriListView);
 
         //dari sqlite
-        //dbProvider = new DatabaseProvider(KategoriListActivity.this);
+        dbProvider = new DatabaseProvider(KategoriListActivity.this);
         //dbProvider.SeedKategori();
-        //listKategori = dbProvider.GetAllKategori();
+        //dbProvider.DeleteAllKategori();
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        loadLocalData();
+        //loadContent();
+    }
 
-        loadContent();
+    private void loadLocalData(){
+        listKategori = dbProvider.GetAllKategori();
+
+        ArrayAdapter<Kategori> adapterKategori = new ArrayAdapter<Kategori>(getApplicationContext(),
+                android.R.layout.simple_list_item_2, android.R.id.text1,listKategori){
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                if(convertView==null){
+                    convertView = LayoutInflater.from(getContext())
+                            .inflate(android.R.layout.simple_list_item_2,parent,false);
+                }
+                TextView text1 = (TextView)convertView.findViewById(android.R.id.text1);
+                TextView text2 = (TextView)convertView.findViewById(android.R.id.text2);
+
+                Kategori kategori = listKategori.get(position);
+                text1.setText(String.valueOf(kategori.getKategoriID()));
+                text2.setText(kategori.getNamaKategori());
+                return convertView;
+            }
+        };
+
+        kategoriListView.setAdapter(adapterKategori);
+    }
+
+    private void SyncWithServer(){
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void doInBackground(Void... params) {
+                try {
+                    dbProvider.DeleteAllKategori();
+                    listKategori = KategoriServices.GetAll();
+
+                } catch (IOException e) {
+                    Log.d("MyServices",e.getLocalizedMessage());
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                for(Kategori kat : listKategori){
+                    dbProvider.TambahKategori(kat);
+                }
+                Toast.makeText(KategoriListActivity.this,"Sync data kategori berhasil !",Toast.LENGTH_LONG).show();
+                loadLocalData();
+            }
+        }.execute();
     }
 
     private void loadContent(){

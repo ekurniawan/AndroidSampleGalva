@@ -100,6 +100,13 @@ public class DatabaseProvider extends SQLiteOpenHelper {
         return status;
     }
 
+    public void DeleteAllKategori(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String strSql = "delete from "+TableKategori;
+        db.execSQL(strSql);
+        db.close();
+    }
+
     public List<Kategori> GetAllKategori(){
         List<Kategori> listKategori = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
