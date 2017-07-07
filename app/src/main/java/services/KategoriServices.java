@@ -21,7 +21,7 @@ import okhttp3.Response;
  */
 
 public final class KategoriServices {
-    private static final String SERVICES_URL = "http://10.0.2.2:8081/";
+    private static final String SERVICES_URL = "http://actualserver.southeastasia.cloudapp.azure.com/";
     private static final OkHttpClient client;
 
     static {
