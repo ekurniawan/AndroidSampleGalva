@@ -253,6 +253,12 @@ public class DatabaseProvider extends SQLiteOpenHelper {
         return barang;
     }
 
+    public void DeleteAllBarang(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from Barang");
+        db.close();
+    }
+
 
     //endregion
 }
