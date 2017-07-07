@@ -1,5 +1,6 @@
 package com.actualsolusi.listviewexample;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -59,6 +60,16 @@ public class KategoriListActivity extends AppCompatActivity {
 
     private void loadContent(){
         new AsyncTask<Void,Void,Void>(){
+            ProgressDialog progress;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                progress = new ProgressDialog(KategoriListActivity.this);
+                progress.setMessage("loading...");
+                progress.show();
+            }
+
             @Override
             protected Void doInBackground(Void... params) {
                 try {
@@ -93,6 +104,9 @@ public class KategoriListActivity extends AppCompatActivity {
                 };
 
                 kategoriListView.setAdapter(adapterKategori);
+                if(progress!=null){
+                    progress.dismiss();
+                }
             }
         }.execute();
     }
